@@ -41,10 +41,3 @@ function plotChart(labels, values) {
 }
 
 
-tfvis.render.linechart(
-  { name: "User Data Line Chart" },
-  data,
-  { xLabel: "Users", yLabel: "Length" }
-);
-
-
