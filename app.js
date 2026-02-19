@@ -1,13 +1,15 @@
 async function fetchUsers() {
   try {
+    // Open the tfjs-vis visor panel to ensure the plotting area is visible
+    tfvis.visor().open();
+
     const response = await fetch(
       "https://jsonplaceholder.typicode.com/users"
     );
 
     const users = await response.json();
 
-    // Transform data
-    // Example: Number of characters in company name
+    // Transform data to get the number of characters in each company name
     const labels = users.map(user => user.name);
     const values = users.map(user => user.company.name.length);
 
@@ -21,14 +23,12 @@ async function fetchUsers() {
 fetchUsers();
 
 function plotChart(labels, values) {
+  const data = labels.map((label, i) => ({
+    index: label,
+    value: values[i]
+  }));
 
-  const data = {
-    values: labels.map((label, i) => ({
-      x: label,
-      y: values[i]
-    }))
-  };
-
+  // Render the barchart
   tfvis.render.barchart(
     { name: "Company Name Length per User" },
     data,
@@ -39,5 +39,3 @@ function plotChart(labels, values) {
     }
   );
 }
-
-
